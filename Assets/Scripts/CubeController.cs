@@ -12,9 +12,12 @@ public class CubeController : MonoBehaviour
     [SerializeField]
     private faceParentDict faceParentDict = new faceParentDict();
     private Dictionary<FaceName, GameObject[]> sideGameObjectDict = new Dictionary<FaceName, GameObject[]> { };
+    private Animator an;
+
 
     void Start()
     {
+        an = gameObject.GetComponent<Animator>();
         InitializeCubeCol();
         UpdateFaceColor();
     }
@@ -26,6 +29,7 @@ public class CubeController : MonoBehaviour
             {
                 gameObject.transform.SetParent(faceParentDict[face].transform);
             }
+            // an.SetTrigger("R");
         }
         catch
         {
