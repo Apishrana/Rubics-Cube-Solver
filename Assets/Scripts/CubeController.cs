@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class CubeController : MonoBehaviour
@@ -21,7 +22,7 @@ public class CubeController : MonoBehaviour
         InitializeCubeCol();
         UpdateFaceColor();
     }
-    public void MoveAnimation(FaceName face)
+    public void MoveAnimation(FaceName face, string trigger)
     {
         try
         {
@@ -29,15 +30,18 @@ public class CubeController : MonoBehaviour
             {
                 gameObject.transform.SetParent(faceParentDict[face].transform);
             }
-            // an.SetTrigger("R");
+            an.SetTrigger(trigger);
         }
         catch
         {
+            an = gameObject.GetComponent<Animator>();
             UpdateFaceColor();
         }
     }
     public void ResetAnimation(FaceName face)
     {
+        faceParentDict[face].transform.rotation = quaternion.identity;
+        an.SetTrigger("Reset");
         foreach (GameObject gameObject in sideGameObjectDict[face])
         {
             gameObject.transform.SetParent(transform);

@@ -21,7 +21,7 @@ public class CubeControllerEditor : EditorTool
 
         Rect panelRect = new Rect(
             window.position.width - panelWidth,
-            window.position.height - panelHeight,
+            window.position.height - panelHeight - 20f,
             panelWidth,
             panelHeight);
 
@@ -32,17 +32,27 @@ public class CubeControllerEditor : EditorTool
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Up")) cube.MoveAnimation(FaceName.Up);
-        if (GUILayout.Button("Down")) cube.MoveAnimation(FaceName.Down);
-        if (GUILayout.Button("Left")) cube.MoveAnimation(FaceName.Left);
+        if (GUILayout.Button("U")) cube.MoveAnimation(FaceName.Up, "U");
+        if (GUILayout.Button("U'")) cube.MoveAnimation(FaceName.Up, "U'");
+        if (GUILayout.Button("D")) cube.MoveAnimation(FaceName.Down, "D");
+        if (GUILayout.Button("D'")) cube.MoveAnimation(FaceName.Down, "D'");
+
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("L")) cube.MoveAnimation(FaceName.Left, "L");
+        if (GUILayout.Button("L'")) cube.MoveAnimation(FaceName.Left, "L'");
+        if (GUILayout.Button("R")) cube.MoveAnimation(FaceName.Right, "R");
+        if (GUILayout.Button("R'")) cube.MoveAnimation(FaceName.Right, "R'");
 
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Right")) cube.MoveAnimation(FaceName.Right);
-        if (GUILayout.Button("Front")) cube.MoveAnimation(FaceName.Front);
-        if (GUILayout.Button("Back")) cube.MoveAnimation(FaceName.Back);
+        if (GUILayout.Button("F")) cube.MoveAnimation(FaceName.Front, "F");
+        if (GUILayout.Button("F'")) cube.MoveAnimation(FaceName.Front, "F'");
+        if (GUILayout.Button("B")) cube.MoveAnimation(FaceName.Back, "B");
+        if (GUILayout.Button("B'")) cube.MoveAnimation(FaceName.Back, "B'");
 
         GUILayout.EndHorizontal();
 
