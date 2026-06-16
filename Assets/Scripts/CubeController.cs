@@ -28,7 +28,7 @@ public class CubeController : MonoBehaviour
         {
             foreach (GameObject gameObject in sideGameObjectDict[face])
             {
-                gameObject.transform.SetParent(faceParentDict[face].transform);
+                gameObject.transform.SetParent(faceParentDict[face].transform, true);
             }
             an.SetTrigger(trigger);
         }
@@ -44,7 +44,7 @@ public class CubeController : MonoBehaviour
         an.SetTrigger("Reset");
         foreach (GameObject gameObject in sideGameObjectDict[face])
         {
-            gameObject.transform.SetParent(transform);
+            gameObject.transform.SetParent(transform, true);
         }
     }
 
