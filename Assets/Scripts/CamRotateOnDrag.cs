@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CubeRotateOnDrag : MonoBehaviour
+public class CamRotateOnDrag : MonoBehaviour
 {
     [SerializeField]
     private float speed;

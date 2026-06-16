@@ -1,0 +1,287 @@
+    private void MakeMove(string moveName)
+    {
+        switch (moveName)
+        {
+            case "R":
+                RotateFaceClockwise(FaceName.Right);
+                break;
+            case "R'":
+                RotateFaceCounterClockwise(FaceName.Right);
+                break;
+            case "U":
+                RotateFaceClockwise(FaceName.Up);
+                break;
+            case "U'":
+                RotateFaceCounterClockwise(FaceName.Up);
+                break;
+            case "L":
+                RotateFaceClockwise(FaceName.Left);
+                break;
+            case "L'":
+                RotateFaceCounterClockwise(FaceName.Left);
+                break;
+            case "F":
+                RotateFaceClockwise(FaceName.Front);
+                break;
+            case "F'":
+                RotateFaceCounterClockwise(FaceName.Front);
+                break;
+            case "B":
+                RotateFaceClockwise(FaceName.Back);
+                break;
+            case "B'":
+                RotateFaceCounterClockwise(FaceName.Back);
+                break;
+            case "D":
+                RotateFaceClockwise(FaceName.Down);
+                break;
+            case "D'":
+                RotateFaceCounterClockwise(FaceName.Down);
+                break;
+        }
+
+        UpdateFaceColor();
+    }
+
+    private void RotateFaceClockwise(FaceName face)
+    {
+        faceColDict oldFace = new faceColDict();
+        foreach (KeyValuePair<PeaceName, CubeColor> kvp in cubeCol[face])
+        {
+            oldFace.Add(kvp.Key, kvp.Value);
+        }
+
+        cubeCol[face][PeaceName.TopLeft] = oldFace[PeaceName.BottomLeft];
+        cubeCol[face][PeaceName.Top] = oldFace[PeaceName.Left];
+        cubeCol[face][PeaceName.TopRight] = oldFace[PeaceName.TopLeft];
+
+        cubeCol[face][PeaceName.Left] = oldFace[PeaceName.Bottom];
+        cubeCol[face][PeaceName.Middle] = oldFace[PeaceName.Middle];
+        cubeCol[face][PeaceName.Right] = oldFace[PeaceName.Top];
+
+        cubeCol[face][PeaceName.BottomLeft] = oldFace[PeaceName.BottomRight];
+        cubeCol[face][PeaceName.Bottom] = oldFace[PeaceName.Right];
+        cubeCol[face][PeaceName.BottomRight] = oldFace[PeaceName.TopRight];
+
+        if (face == FaceName.Right)
+            RotateRightSideBands();
+        else if (face == FaceName.Up)
+            RotateUpSideBands();
+        else if (face == FaceName.Left)
+            RotateLeftSideBands();
+        else if (face == FaceName.Front)
+            RotateFrontSideBands();
+        else if (face == FaceName.Back)
+            RotateBackSideBands();
+        else if (face == FaceName.Down)
+            RotateDownSideBands();
+    }
+
+    private void RotateFaceCounterClockwise(FaceName face)
+    {
+        RotateFaceClockwise(face);
+        RotateFaceClockwise(face);
+        RotateFaceClockwise(face);
+    }
+
+    private void RotateRightSideBands()
+    {
+        CubeColor[] up =
+        {
+            cubeCol[FaceName.Up][PeaceName.TopRight],
+            cubeCol[FaceName.Up][PeaceName.Right],
+            cubeCol[FaceName.Up][PeaceName.BottomRight]
+        };
+
+        CubeColor[] front =
+        {
+            cubeCol[FaceName.Front][PeaceName.TopRight],
+            cubeCol[FaceName.Front][PeaceName.Right],
+            cubeCol[FaceName.Front][PeaceName.BottomRight]
+        };
+
+        CubeColor[] down =
+        {
+            cubeCol[FaceName.Down][PeaceName.TopRight],
+            cubeCol[FaceName.Down][PeaceName.Right],
+            cubeCol[FaceName.Down][PeaceName.BottomRight]
+        };
+
+        CubeColor[] back =
+        {
+            cubeCol[FaceName.Back][PeaceName.TopLeft],
+            cubeCol[FaceName.Back][PeaceName.Left],
+            cubeCol[FaceName.Back][PeaceName.BottomLeft]
+        };
+
+        cubeCol[FaceName.Front][PeaceName.TopRight] = up[0];
+        cubeCol[FaceName.Front][PeaceName.Right] = up[1];
+        cubeCol[FaceName.Front][PeaceName.BottomRight] = up[2];
+
+        cubeCol[FaceName.Down][PeaceName.TopRight] = front[0];
+        cubeCol[FaceName.Down][PeaceName.Right] = front[1];
+        cubeCol[FaceName.Down][PeaceName.BottomRight] = front[2];
+
+        cubeCol[FaceName.Back][PeaceName.TopLeft] = down[0];
+        cubeCol[FaceName.Back][PeaceName.Left] = down[1];
+        cubeCol[FaceName.Back][PeaceName.BottomLeft] = down[2];
+
+        cubeCol[FaceName.Up][PeaceName.TopRight] = back[0];
+        cubeCol[FaceName.Up][PeaceName.Right] = back[1];
+        cubeCol[FaceName.Up][PeaceName.BottomRight] = back[2];
+    }
+
+    private void RotateUpSideBands()
+    {
+        CubeColor[] front =
+        {
+            cubeCol[FaceName.Front][PeaceName.TopLeft],
+            cubeCol[FaceName.Front][PeaceName.Top],
+            cubeCol[FaceName.Front][PeaceName.TopRight]
+        };
+
+        CubeColor[] right =
+        {
+            cubeCol[FaceName.Right][PeaceName.TopLeft],
+            cubeCol[FaceName.Right][PeaceName.Top],
+            cubeCol[FaceName.Right][PeaceName.TopRight]
+        };
+
+        CubeColor[] back =
+        {
+            cubeCol[FaceName.Back][PeaceName.TopLeft],
+            cubeCol[FaceName.Back][PeaceName.Top],
+            cubeCol[FaceName.Back][PeaceName.TopRight]
+        };
+
+        CubeColor[] left =
+        {
+            cubeCol[FaceName.Left][PeaceName.TopLeft],
+            cubeCol[FaceName.Left][PeaceName.Top],
+            cubeCol[FaceName.Left][PeaceName.TopRight]
+        };
+
+        cubeCol[FaceName.Right][PeaceName.TopLeft] = front[0];
+        cubeCol[FaceName.Right][PeaceName.Top] = front[1];
+        cubeCol[FaceName.Right][PeaceName.TopRight] = front[2];
+
+        cubeCol[FaceName.Back][PeaceName.TopLeft] = right[0];
+        cubeCol[FaceName.Back][PeaceName.Top] = right[1];
+        cubeCol[FaceName.Back][PeaceName.TopRight] = right[2];
+
+        cubeCol[FaceName.Left][PeaceName.TopLeft] = back[0];
+        cubeCol[FaceName.Left][PeaceName.Top] = back[1];
+        cubeCol[FaceName.Left][PeaceName.TopRight] = back[2];
+
+        cubeCol[FaceName.Front][PeaceName.TopLeft] = left[0];
+        cubeCol[FaceName.Front][PeaceName.Top] = left[1];
+        cubeCol[FaceName.Front][PeaceName.TopRight] = left[2];
+    }
+
+    private void RotateLeftSideBands()
+    {
+        RotateRightSideBands();
+        RotateRightSideBands();
+        RotateRightSideBands();
+    }
+
+    private void RotateFrontSideBands()
+    {
+        CubeColor[] up =
+        {
+            cubeCol[FaceName.Up][PeaceName.BottomLeft],
+            cubeCol[FaceName.Up][PeaceName.Bottom],
+            cubeCol[FaceName.Up][PeaceName.BottomRight]
+        };
+
+        CubeColor[] right =
+        {
+            cubeCol[FaceName.Right][PeaceName.TopLeft],
+            cubeCol[FaceName.Right][PeaceName.Left],
+            cubeCol[FaceName.Right][PeaceName.BottomLeft]
+        };
+
+        CubeColor[] down =
+        {
+            cubeCol[FaceName.Down][PeaceName.TopLeft],
+            cubeCol[FaceName.Down][PeaceName.Top],
+            cubeCol[FaceName.Down][PeaceName.TopRight]
+        };
+
+        CubeColor[] left =
+        {
+            cubeCol[FaceName.Left][PeaceName.TopRight],
+            cubeCol[FaceName.Left][PeaceName.Right],
+            cubeCol[FaceName.Left][PeaceName.BottomRight]
+        };
+
+        cubeCol[FaceName.Right][PeaceName.TopLeft] = up[0];
+        cubeCol[FaceName.Right][PeaceName.Left] = up[1];
+        cubeCol[FaceName.Right][PeaceName.BottomLeft] = up[2];
+
+        cubeCol[FaceName.Down][PeaceName.TopLeft] = right[0];
+        cubeCol[FaceName.Down][PeaceName.Top] = right[1];
+        cubeCol[FaceName.Down][PeaceName.TopRight] = right[2];
+
+        cubeCol[FaceName.Left][PeaceName.TopRight] = down[0];
+        cubeCol[FaceName.Left][PeaceName.Right] = down[1];
+        cubeCol[FaceName.Left][PeaceName.BottomRight] = down[2];
+
+        cubeCol[FaceName.Up][PeaceName.BottomLeft] = left[0];
+        cubeCol[FaceName.Up][PeaceName.Bottom] = left[1];
+        cubeCol[FaceName.Up][PeaceName.BottomRight] = left[2];
+    }
+
+    private void RotateBackSideBands()
+    {
+        CubeColor[] up =
+        {
+            cubeCol[FaceName.Up][PeaceName.TopLeft],
+            cubeCol[FaceName.Up][PeaceName.Top],
+            cubeCol[FaceName.Up][PeaceName.TopRight]
+        };
+
+        CubeColor[] right =
+        {
+            cubeCol[FaceName.Right][PeaceName.TopRight],
+            cubeCol[FaceName.Right][PeaceName.Right],
+            cubeCol[FaceName.Right][PeaceName.BottomRight]
+        };
+
+        CubeColor[] down =
+        {
+            cubeCol[FaceName.Down][PeaceName.BottomLeft],
+            cubeCol[FaceName.Down][PeaceName.Bottom],
+            cubeCol[FaceName.Down][PeaceName.BottomRight]
+        };
+
+        CubeColor[] left =
+        {
+            cubeCol[FaceName.Left][PeaceName.TopLeft],
+            cubeCol[FaceName.Left][PeaceName.Left],
+            cubeCol[FaceName.Left][PeaceName.BottomLeft]
+        };
+
+        cubeCol[FaceName.Left][PeaceName.TopLeft] = up[0];
+        cubeCol[FaceName.Left][PeaceName.Left] = up[1];
+        cubeCol[FaceName.Left][PeaceName.BottomLeft] = up[2];
+
+        cubeCol[FaceName.Down][PeaceName.BottomLeft] = left[0];
+        cubeCol[FaceName.Down][PeaceName.Bottom] = left[1];
+        cubeCol[FaceName.Down][PeaceName.BottomRight] = left[2];
+
+        cubeCol[FaceName.Right][PeaceName.TopRight] = down[0];
+        cubeCol[FaceName.Right][PeaceName.Right] = down[1];
+        cubeCol[FaceName.Right][PeaceName.BottomRight] = down[2];
+
+        cubeCol[FaceName.Up][PeaceName.TopLeft] = right[0];
+        cubeCol[FaceName.Up][PeaceName.Top] = right[1];
+        cubeCol[FaceName.Up][PeaceName.TopRight] = right[2];
+    }
+
+    private void RotateDownSideBands()
+    {
+        RotateUpSideBands();
+        RotateUpSideBands();
+        RotateUpSideBands();
+    }

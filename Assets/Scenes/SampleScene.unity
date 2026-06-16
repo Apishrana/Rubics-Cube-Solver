@@ -211,6 +211,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 410087041}
   - {fileID: 1173449266}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 29.85, y: -56.6, z: 0}
@@ -270,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca0e6f421457449591914285bcff5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CubeRotateOnDrag
-  speed: 40
+  speed: -40
   zoomSpeed: 5
   minDistance: 4
   maxDistance: 9
@@ -365,12 +366,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.17024513, y: 0.17642172, z: -0.14764228, w: 0.9581721}
+  m_LocalPosition: {x: 0.207865, y: 2.4728951, z: 5.7499456}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -21495,6 +21496,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
-  - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 2109006659247995581}
