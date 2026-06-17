@@ -9,7 +9,7 @@ public class CubeControllerEditor : EditorTool
     {
         Handles.BeginGUI();
 
-        CubeController cube = Object.FindFirstObjectByType<CubeController>();
+        CubeController cube = Object.FindAnyObjectByType<CubeController>();
         if (cube == null)
         {
             Handles.EndGUI();
@@ -59,7 +59,6 @@ public class CubeControllerEditor : EditorTool
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Reset"))
         {
-            cube.setupLayer();
             cube.ResetAnimation(FaceName.Back);
             cube.ResetAnimation(FaceName.Front);
             cube.ResetAnimation(FaceName.Right);
