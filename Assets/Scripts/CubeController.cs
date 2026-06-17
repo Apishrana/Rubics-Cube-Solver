@@ -36,9 +36,174 @@ public class CubeController : MonoBehaviour
             UpdateFaceColor();
         }
     }
-    private void MakeMove()
+    void Update()
     {
+        UpdateMoveColor();
+    }
+    public void UpdateMoveColor()
+    {
+        F();
+        B();
+        R();
+        L();
+        D();
+        U();
+        void F()
+        {
+            Vector3 reyPos = faceRcDict[FaceName.Front].transform.position;
+            reyPos.z -= 2;
+            reyPos.y -= 2;
+            RaycastHit hit;
 
+            for (int j = -1; j < 2; j++)
+            {
+                reyPos.y += 1;
+                for (int i = -1; i < 2; i++)
+                {
+                    reyPos.z += 1;
+
+                    if (Physics.Raycast(reyPos, faceRcDict[FaceName.Front].transform.right, out hit, Mathf.Infinity, sideLayer))
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Front].transform.right * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Front].transform.right * 50, Color.red);
+                    }
+                }
+                reyPos.z -= 3;
+            }
+        }
+        void B()
+        {
+            Vector3 reyPos = faceRcDict[FaceName.Back].transform.position;
+            reyPos.z -= 2;
+            reyPos.y -= 2;
+            RaycastHit hit;
+
+            for (int j = -1; j < 2; j++)
+            {
+                reyPos.y += 1;
+                for (int i = -1; i < 2; i++)
+                {
+                    reyPos.z += 1;
+
+                    if (Physics.Raycast(reyPos, faceRcDict[FaceName.Back].transform.right, out hit, Mathf.Infinity, sideLayer))
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Back].transform.right * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Back].transform.right * 50, Color.red);
+                    }
+                }
+                reyPos.z -= 3;
+            }
+        }
+        void L()
+        {
+            Vector3 reyPos = faceRcDict[FaceName.Left].transform.position;
+            reyPos.x -= 2;
+            reyPos.y -= 2;
+            RaycastHit hit;
+
+            for (int j = -1; j < 2; j++)
+            {
+                reyPos.y += 1;
+                for (int i = -1; i < 2; i++)
+                {
+                    reyPos.x += 1;
+
+                    if (Physics.Raycast(reyPos, faceRcDict[FaceName.Left].transform.right, out hit, Mathf.Infinity, sideLayer))
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Left].transform.right * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Left].transform.right * 50, Color.red);
+                    }
+                }
+                reyPos.x -= 3;
+            }
+        }
+        void R()
+        {
+            Vector3 reyPos = faceRcDict[FaceName.Right].transform.position;
+            reyPos.x -= 2;
+            reyPos.y -= 2;
+            RaycastHit hit;
+
+            for (int j = -1; j < 2; j++)
+            {
+                reyPos.y += 1;
+                for (int i = -1; i < 2; i++)
+                {
+                    reyPos.x += 1;
+
+                    if (Physics.Raycast(reyPos, faceRcDict[FaceName.Right].transform.right, out hit, Mathf.Infinity, sideLayer))
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Right].transform.right * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Right].transform.right * 50, Color.red);
+                    }
+                }
+                reyPos.x -= 3;
+            }
+        }
+        void U()
+        {
+            Vector3 reyPos = faceRcDict[FaceName.Up].transform.position;
+            reyPos.z -= 2;
+            reyPos.x -= 2;
+            RaycastHit hit;
+
+            for (int j = -1; j < 2; j++)
+            {
+                reyPos.x += 1;
+                for (int i = -1; i < 2; i++)
+                {
+                    reyPos.z += 1;
+
+                    if (Physics.Raycast(reyPos, faceRcDict[FaceName.Up].transform.up, out hit, Mathf.Infinity, sideLayer))
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Up].transform.up * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Up].transform.up * 50, Color.red);
+                    }
+                }
+                reyPos.z -= 3;
+            }
+        }
+        void D()
+        {
+            Vector3 reyPos = faceRcDict[FaceName.Down].transform.position;
+            reyPos.z -= 2;
+            reyPos.x -= 2;
+            RaycastHit hit;
+
+            for (int j = -1; j < 2; j++)
+            {
+                reyPos.x += 1;
+                for (int i = -1; i < 2; i++)
+                {
+                    reyPos.z += 1;
+
+                    if (Physics.Raycast(reyPos, faceRcDict[FaceName.Down].transform.up, out hit, Mathf.Infinity, sideLayer))
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Down].transform.up * hit.distance, Color.green);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Down].transform.up * 50, Color.red);
+                    }
+                }
+                reyPos.z -= 3;
+            }
+        }
     }
     public void ResetAnimation(FaceName face)
     {
