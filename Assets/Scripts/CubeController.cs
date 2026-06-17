@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-    [SerializeField]
-    private cubeColDict cubeCol = new cubeColDict();
-    [SerializeField]
-    private cubeObjDict cubeObj = new cubeObjDict();
-    [SerializeField]
-    private colorMatDic colDic = new colorMatDic();
-    [SerializeField]
-    private faceParentDict faceParentDict = new faceParentDict();
+    [SerializeField] private cubeColDict cubeCol = new cubeColDict();
+    [SerializeField] private cubeObjDict cubeObj = new cubeObjDict();
+    [SerializeField] private colorMatDic colDic = new colorMatDic();
+    [SerializeField] private faceParentDict faceParentDict = new faceParentDict();
+    [SerializeField] private faceRcDict faceRcDict = new faceRcDict();
+    [SerializeField] private LayerMask sideLayer;
     private Dictionary<FaceName, GameObject[]> sideGameObjectDict = new Dictionary<FaceName, GameObject[]> { };
     private Animator an;
 
@@ -37,6 +35,10 @@ public class CubeController : MonoBehaviour
             an = gameObject.GetComponent<Animator>();
             UpdateFaceColor();
         }
+    }
+    private void MakeMove()
+    {
+
     }
     public void ResetAnimation(FaceName face)
     {

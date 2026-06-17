@@ -6,4 +6,5 @@
 [CustomPropertyDrawer(typeof(faceObjDict))]
 [CustomPropertyDrawer(typeof(colorMatDic))]
 [CustomPropertyDrawer(typeof(faceParentDict))]
+[CustomPropertyDrawer(typeof(faceRcDict))]
 public class AnySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer { }
