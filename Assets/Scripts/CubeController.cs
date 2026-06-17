@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using Unity.Mathematics;
+using System.Linq;
+using System;
 using UnityEngine;
 
 public class CubeController : MonoBehaviour
@@ -30,15 +31,14 @@ public class CubeController : MonoBehaviour
             }
             an.SetTrigger(trigger);
         }
-        catch
+        catch (Exception e)
         {
-            an = gameObject.GetComponent<Animator>();
-            UpdateFaceColor();
+            Debug.LogException(e);
         }
     }
     void Update()
     {
-        UpdateMoveColor();
+        // UpdateMoveColor();
     }
     public void UpdateMoveColor()
     {
@@ -64,11 +64,9 @@ public class CubeController : MonoBehaviour
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Front].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Front].transform.right * hit.distance, Color.green);
-                    }
-                    else
-                    {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Front].transform.right * 50, Color.red);
+                        Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+                        CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
+                        Debug.LogWarning(key);
                     }
                 }
                 reyPos.z -= 3;
@@ -90,11 +88,9 @@ public class CubeController : MonoBehaviour
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Back].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Back].transform.right * hit.distance, Color.green);
-                    }
-                    else
-                    {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Back].transform.right * 50, Color.red);
+                        Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+                        CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
+                        Debug.LogWarning(key);
                     }
                 }
                 reyPos.z -= 3;
@@ -116,11 +112,9 @@ public class CubeController : MonoBehaviour
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Left].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Left].transform.right * hit.distance, Color.green);
-                    }
-                    else
-                    {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Left].transform.right * 50, Color.red);
+                        Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+                        CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
+                        Debug.LogWarning(key);
                     }
                 }
                 reyPos.x -= 3;
@@ -142,11 +136,9 @@ public class CubeController : MonoBehaviour
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Right].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Right].transform.right * hit.distance, Color.green);
-                    }
-                    else
-                    {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Right].transform.right * 50, Color.red);
+                        Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+                        CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
+                        Debug.LogWarning(key);
                     }
                 }
                 reyPos.x -= 3;
@@ -168,11 +160,9 @@ public class CubeController : MonoBehaviour
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Up].transform.up, out hit, Mathf.Infinity, sideLayer))
                     {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Up].transform.up * hit.distance, Color.green);
-                    }
-                    else
-                    {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Up].transform.up * 50, Color.red);
+                        Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+                        CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
+                        Debug.LogWarning(key);
                     }
                 }
                 reyPos.z -= 3;
@@ -194,11 +184,9 @@ public class CubeController : MonoBehaviour
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Down].transform.up, out hit, Mathf.Infinity, sideLayer))
                     {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Down].transform.up * hit.distance, Color.green);
-                    }
-                    else
-                    {
-                        Debug.DrawRay(reyPos, faceRcDict[FaceName.Down].transform.up * 50, Color.red);
+                        Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
+                        CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
+                        Debug.LogWarning(key);
                     }
                 }
                 reyPos.z -= 3;
@@ -207,7 +195,7 @@ public class CubeController : MonoBehaviour
     }
     public void ResetAnimation(FaceName face)
     {
-        faceParentDict[face].transform.rotation = quaternion.identity;
+        faceParentDict[face].transform.localRotation = Quaternion.identity;
         an.SetTrigger("Reset");
         foreach (GameObject gameObject in sideGameObjectDict[face])
         {
@@ -217,6 +205,7 @@ public class CubeController : MonoBehaviour
 
     private void UpdateFaceColor()
     {
+        sideGameObjectDict.Clear();
         foreach (KeyValuePair<FaceName, faceColDict> kvp1 in cubeCol)
         {
             FaceName face = kvp1.Key;
@@ -235,7 +224,7 @@ public class CubeController : MonoBehaviour
                 i++;
             }
             // Debug.LogError(face, GOL[0]);
-            sideGameObjectDict.Add(face, GOL);
+            sideGameObjectDict[face] = GOL;
         }
     }
 
