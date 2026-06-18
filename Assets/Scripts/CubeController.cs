@@ -54,19 +54,22 @@ public class CubeController : MonoBehaviour
             reyPos.z -= 2;
             reyPos.y -= 2;
             RaycastHit hit;
+            int z = 0;
 
-            for (int j = -1; j < 2; j++)
+            for (int j = 0; j < 3; j++)
             {
                 reyPos.y += 1;
-                for (int i = -1; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Front].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
+                        PeaceName peaceName = (PeaceName)z;
                         Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
-                        Debug.LogWarning(key);
+                        cubeCol[FaceName.Front][peaceName] = key;
+                        z++;
                     }
                 }
                 reyPos.z -= 3;
@@ -78,19 +81,22 @@ public class CubeController : MonoBehaviour
             reyPos.z -= 2;
             reyPos.y -= 2;
             RaycastHit hit;
+            int z = 0;
 
-            for (int j = -1; j < 2; j++)
+            for (int j = 0; j < 3; j++)
             {
                 reyPos.y += 1;
-                for (int i = -1; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Back].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
+                        PeaceName peaceName = (PeaceName)z;
                         Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
-                        Debug.LogWarning(key);
+                        cubeCol[FaceName.Back][peaceName] = key;
+                        z++;
                     }
                 }
                 reyPos.z -= 3;
@@ -102,19 +108,22 @@ public class CubeController : MonoBehaviour
             reyPos.x -= 2;
             reyPos.y -= 2;
             RaycastHit hit;
+            int z = 0;
 
-            for (int j = -1; j < 2; j++)
+            for (int j = 0; j < 3; j++)
             {
                 reyPos.y += 1;
-                for (int i = -1; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     reyPos.x += 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Left].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
+                        PeaceName peaceName = (PeaceName)z;
                         Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
-                        Debug.LogWarning(key);
+                        cubeCol[FaceName.Left][peaceName] = key;
+                        z++;
                     }
                 }
                 reyPos.x -= 3;
@@ -126,19 +135,22 @@ public class CubeController : MonoBehaviour
             reyPos.x -= 2;
             reyPos.y -= 2;
             RaycastHit hit;
+            int z = 0;
 
-            for (int j = -1; j < 2; j++)
+            for (int j = 0; j < 3; j++)
             {
                 reyPos.y += 1;
-                for (int i = -1; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     reyPos.x += 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Right].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
+                        PeaceName peaceName = (PeaceName)z;
                         Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
-                        Debug.LogWarning(key);
+                        cubeCol[FaceName.Right][peaceName] = key;
+                        z++;
                     }
                 }
                 reyPos.x -= 3;
@@ -150,19 +162,22 @@ public class CubeController : MonoBehaviour
             reyPos.z -= 2;
             reyPos.x -= 2;
             RaycastHit hit;
+            int z = 0;
 
-            for (int j = -1; j < 2; j++)
+            for (int j = 0; j < 3; j++)
             {
                 reyPos.x += 1;
-                for (int i = -1; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Up].transform.up, out hit, Mathf.Infinity, sideLayer))
                     {
+                        PeaceName peaceName = (PeaceName)z;
                         Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
-                        Debug.LogWarning(key);
+                        cubeCol[FaceName.Up][peaceName] = key;
+                        z++;
                     }
                 }
                 reyPos.z -= 3;
@@ -174,19 +189,22 @@ public class CubeController : MonoBehaviour
             reyPos.z -= 2;
             reyPos.x -= 2;
             RaycastHit hit;
+            int z = 0;
 
-            for (int j = -1; j < 2; j++)
+            for (int j = 0; j < 3; j++)
             {
                 reyPos.x += 1;
-                for (int i = -1; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Down].transform.up, out hit, Mathf.Infinity, sideLayer))
                     {
+                        PeaceName peaceName = (PeaceName)z;
                         Material matchMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().sharedMaterial;
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
-                        Debug.LogWarning(key);
+                        cubeCol[FaceName.Down][peaceName] = key;
+                        z++;
                     }
                 }
                 reyPos.z -= 3;
@@ -201,6 +219,7 @@ public class CubeController : MonoBehaviour
         {
             gameObject.transform.SetParent(transform, true);
         }
+        UpdateFaceColor();
     }
 
     private void UpdateFaceColor()
