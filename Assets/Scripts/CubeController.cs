@@ -78,7 +78,7 @@ public class CubeController : MonoBehaviour
         void B()
         {
             Vector3 reyPos = faceRcDict[FaceName.Back].transform.position;
-            reyPos.z -= 2;
+            reyPos.z += 2;
             reyPos.y -= 2;
             RaycastHit hit;
             int z = 0;
@@ -88,7 +88,7 @@ public class CubeController : MonoBehaviour
                 reyPos.y += 1;
                 for (int i = 0; i < 3; i++)
                 {
-                    reyPos.z += 1;
+                    reyPos.z -= 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Back].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
@@ -99,7 +99,7 @@ public class CubeController : MonoBehaviour
                         z++;
                     }
                 }
-                reyPos.z -= 3;
+                reyPos.z += 3;
             }
         }
         void L()
@@ -132,7 +132,7 @@ public class CubeController : MonoBehaviour
         void R()
         {
             Vector3 reyPos = faceRcDict[FaceName.Right].transform.position;
-            reyPos.x -= 2;
+            reyPos.x += 2;
             reyPos.y -= 2;
             RaycastHit hit;
             int z = 0;
@@ -142,7 +142,7 @@ public class CubeController : MonoBehaviour
                 reyPos.y += 1;
                 for (int i = 0; i < 3; i++)
                 {
-                    reyPos.x += 1;
+                    reyPos.x -= 1;
 
                     if (Physics.Raycast(reyPos, faceRcDict[FaceName.Right].transform.right, out hit, Mathf.Infinity, sideLayer))
                     {
@@ -151,22 +151,23 @@ public class CubeController : MonoBehaviour
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
                         cubeCol[FaceName.Right][peaceName] = key;
                         z++;
+                        Debug.Log(z);
                     }
                 }
-                reyPos.x -= 3;
+                reyPos.x += 3;
             }
         }
         void U()
         {
             Vector3 reyPos = faceRcDict[FaceName.Up].transform.position;
             reyPos.z -= 2;
-            reyPos.x -= 2;
+            reyPos.x += 2;
             RaycastHit hit;
             int z = 0;
 
             for (int j = 0; j < 3; j++)
             {
-                reyPos.x += 1;
+                reyPos.x -= 1;
                 for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
