@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
+using Kociemba;
 
 public class CubeController : MonoBehaviour
 {
@@ -13,6 +14,24 @@ public class CubeController : MonoBehaviour
     [SerializeField] private LayerMask sideLayer;
     private Dictionary<FaceName, GameObject[]> sideGameObjectDict = new Dictionary<FaceName, GameObject[]> { };
     private Animator an;
+
+    void Solve()
+    {
+        string searchString = "";
+
+        
+
+        foreach (KeyValuePair<FaceName, faceColDict> kvp1 in cubeCol)
+        {
+            FaceName face = kvp1.Key;
+            faceColDict colors = kvp1.Value;
+
+            foreach (KeyValuePair<PeaceName, CubeColor> kvp2 in colors) { }
+        }
+
+        string info = "";
+        string solution = SearchRunTime.solution(searchString, out info, buildTables: true);
+    }
 
 
     void Start()
