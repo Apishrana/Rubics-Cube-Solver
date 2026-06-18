@@ -8,7 +8,7 @@ public enum FaceName
 }
 public enum PeaceName
 {
-    TopLeft = 0, Top = 1, TopRight = 2, Left = 3, Middle = 4, Right = 5, BottomLeft = 6, Bottom = 6, BottomRight = 8
+    TopLeft = 0, Top = 1, TopRight = 2, Left = 3, Middle = 4, Right = 5, BottomLeft = 6, Bottom = 7, BottomRight = 8
 }
 public enum CubeColor
 {

@@ -14,12 +14,12 @@ public class CubeController : MonoBehaviour
     [SerializeField] private LayerMask sideLayer;
     private Dictionary<FaceName, GameObject[]> sideGameObjectDict = new Dictionary<FaceName, GameObject[]> { };
     private Animator an;
+    private bool animating = false;
 
-    void Solve()
+    public void Solve()
     {
         string searchString = "";
 
-        
 
         foreach (KeyValuePair<FaceName, faceColDict> kvp1 in cubeCol)
         {
@@ -31,19 +31,25 @@ public class CubeController : MonoBehaviour
 
         string info = "";
         string solution = SearchRunTime.solution(searchString, out info, buildTables: true);
+
     }
 
 
     void Start()
     {
         an = gameObject.GetComponent<Animator>();
-        InitializeCubeCol();
+        // InitializeCubeCol();
         UpdateFaceColor();
     }
     public void MoveAnimation(FaceName face, string trigger)
     {
+        if (animating)
+        {
+            return;
+        }
         try
         {
+            animating = true;
             foreach (GameObject gameObject in sideGameObjectDict[face])
             {
                 gameObject.transform.SetParent(faceParentDict[face].transform, true);
@@ -71,13 +77,13 @@ public class CubeController : MonoBehaviour
         {
             Vector3 reyPos = faceRcDict[FaceName.Front].transform.position;
             reyPos.z -= 2;
-            reyPos.y -= 2;
+            reyPos.y += 2;
             RaycastHit hit;
             int z = 0;
 
             for (int j = 0; j < 3; j++)
             {
-                reyPos.y += 1;
+                reyPos.y -= 1;
                 for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
@@ -98,13 +104,13 @@ public class CubeController : MonoBehaviour
         {
             Vector3 reyPos = faceRcDict[FaceName.Back].transform.position;
             reyPos.z += 2;
-            reyPos.y -= 2;
+            reyPos.y += 2;
             RaycastHit hit;
             int z = 0;
 
             for (int j = 0; j < 3; j++)
             {
-                reyPos.y += 1;
+                reyPos.y -= 1;
                 for (int i = 0; i < 3; i++)
                 {
                     reyPos.z -= 1;
@@ -125,13 +131,13 @@ public class CubeController : MonoBehaviour
         {
             Vector3 reyPos = faceRcDict[FaceName.Left].transform.position;
             reyPos.x -= 2;
-            reyPos.y -= 2;
+            reyPos.y += 2;
             RaycastHit hit;
             int z = 0;
 
             for (int j = 0; j < 3; j++)
             {
-                reyPos.y += 1;
+                reyPos.y -= 1;
                 for (int i = 0; i < 3; i++)
                 {
                     reyPos.x += 1;
@@ -152,13 +158,13 @@ public class CubeController : MonoBehaviour
         {
             Vector3 reyPos = faceRcDict[FaceName.Right].transform.position;
             reyPos.x += 2;
-            reyPos.y -= 2;
+            reyPos.y += 2;
             RaycastHit hit;
             int z = 0;
 
             for (int j = 0; j < 3; j++)
             {
-                reyPos.y += 1;
+                reyPos.y -= 1;
                 for (int i = 0; i < 3; i++)
                 {
                     reyPos.x -= 1;
@@ -180,13 +186,13 @@ public class CubeController : MonoBehaviour
         {
             Vector3 reyPos = faceRcDict[FaceName.Up].transform.position;
             reyPos.z -= 2;
-            reyPos.x += 2;
+            reyPos.x -= 2;
             RaycastHit hit;
             int z = 0;
 
             for (int j = 0; j < 3; j++)
             {
-                reyPos.x -= 1;
+                reyPos.x += 1;
                 for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
@@ -207,13 +213,13 @@ public class CubeController : MonoBehaviour
         {
             Vector3 reyPos = faceRcDict[FaceName.Down].transform.position;
             reyPos.z -= 2;
-            reyPos.x -= 2;
+            reyPos.x += 2;
             RaycastHit hit;
             int z = 0;
 
             for (int j = 0; j < 3; j++)
             {
-                reyPos.x += 1;
+                reyPos.x -= 1;
                 for (int i = 0; i < 3; i++)
                 {
                     reyPos.z += 1;
@@ -233,6 +239,7 @@ public class CubeController : MonoBehaviour
     }
     public void ResetAnimation(FaceName face)
     {
+        animating = false;
         faceParentDict[face].transform.localRotation = Quaternion.identity;
         an.SetTrigger("Reset");
         foreach (GameObject gameObject in sideGameObjectDict[face])
@@ -268,34 +275,34 @@ public class CubeController : MonoBehaviour
     }
 
 
-    private void InitializeCubeCol()
-    {
-        cubeCol.Clear();
+    // private void InitializeCubeCol()
+    // {
+    //     cubeCol.Clear();
 
-        cubeCol.Add(FaceName.Up, CreateColFace(CubeColor.blue));
-        cubeCol.Add(FaceName.Down, CreateColFace(CubeColor.green));
-        cubeCol.Add(FaceName.Left, CreateColFace(CubeColor.white));
-        cubeCol.Add(FaceName.Right, CreateColFace(CubeColor.yellow));
-        cubeCol.Add(FaceName.Front, CreateColFace(CubeColor.red));
-        cubeCol.Add(FaceName.Back, CreateColFace(CubeColor.orange));
+    //     cubeCol.Add(FaceName.Up, CreateColFace(CubeColor.blue));
+    //     cubeCol.Add(FaceName.Down, CreateColFace(CubeColor.green));
+    //     cubeCol.Add(FaceName.Left, CreateColFace(CubeColor.white));
+    //     cubeCol.Add(FaceName.Right, CreateColFace(CubeColor.yellow));
+    //     cubeCol.Add(FaceName.Front, CreateColFace(CubeColor.red));
+    //     cubeCol.Add(FaceName.Back, CreateColFace(CubeColor.orange));
 
-    }
+    // }
 
-    private faceColDict CreateColFace(CubeColor color)
-    {
-        return new faceColDict
-        {
-            { PeaceName.TopLeft, color },
-            { PeaceName.Top, color },
-            { PeaceName.TopRight, color },
+    // private faceColDict CreateColFace(CubeColor color)
+    // {
+    //     return new faceColDict
+    //     {
+    //         { PeaceName.TopLeft, color },
+    //         { PeaceName.Top, color },
+    //         { PeaceName.TopRight, color },
 
-            { PeaceName.Left, color },
-            { PeaceName.Middle, color },
-            { PeaceName.Right, color },
+    //         { PeaceName.Left, color },
+    //         { PeaceName.Middle, color },
+    //         { PeaceName.Right, color },
 
-            { PeaceName.BottomLeft, color },
-            { PeaceName.Bottom, color },
-            { PeaceName.BottomRight, color }
-        };
-    }
+    //         { PeaceName.BottomLeft, color },
+    //         { PeaceName.Bottom, color },
+    //         { PeaceName.BottomRight, color }
+    //     };
+    // }
 }
