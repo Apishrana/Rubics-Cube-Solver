@@ -11,6 +11,7 @@ public class CubeController : MonoBehaviour
     [SerializeField] private colorMatDic colDic = new colorMatDic();
     [SerializeField] private faceParentDict faceParentDict = new faceParentDict();
     [SerializeField] private faceRcDict faceRcDict = new faceRcDict();
+    [SerializeField] private colFaceDict colFaceDict = new colFaceDict();
     [SerializeField] private LayerMask sideLayer;
     private Dictionary<FaceName, GameObject[]> sideGameObjectDict = new Dictionary<FaceName, GameObject[]> { };
     private Animator an;
@@ -18,27 +19,40 @@ public class CubeController : MonoBehaviour
 
     public void Solve()
     {
-        string searchString = "";
-
-
-        foreach (KeyValuePair<FaceName, faceColDict> kvp1 in cubeCol)
-        {
-            FaceName face = kvp1.Key;
-            faceColDict colors = kvp1.Value;
-
-            foreach (KeyValuePair<PeaceName, CubeColor> kvp2 in colors) { }
-        }
+        string searchString = GetCubeStateString();
+        // Debug.LogError(searchString);
 
         string info = "";
         string solution = SearchRunTime.solution(searchString, out info, buildTables: true);
+        // string solution = Search.solution(searchString, out info);
+        // Debug.Log(info);
+        Debug.LogError(solution);
+    }
 
+    private string GetCubeStateString()
+    {
+        string output = "";
+        FaceName[] order = { FaceName.Up, FaceName.Right, FaceName.Front, FaceName.Down, FaceName.Left, FaceName.Back };
+        PeaceName[] peaceOrder = { PeaceName.TopLeft, PeaceName.Top, PeaceName.TopRight, PeaceName.Left, PeaceName.Middle, PeaceName.Right, PeaceName.BottomLeft, PeaceName.Bottom, PeaceName.BottomRight, };
+        foreach (FaceName faceName in order)
+        {
+            faceColDict colors = cubeCol[faceName];
+            string currSubStr = "";
+
+            foreach (PeaceName peaceName in peaceOrder)
+            {
+                currSubStr += colFaceDict[colors[peaceName]];
+            }
+            output += currSubStr;
+        }
+
+        return output;
     }
 
 
     void Start()
     {
         an = gameObject.GetComponent<Animator>();
-        // InitializeCubeCol();
         UpdateFaceColor();
     }
     public void MoveAnimation(FaceName face, string trigger)
@@ -176,7 +190,6 @@ public class CubeController : MonoBehaviour
                         CubeColor key = colDic.FirstOrDefault(x => x.Value == matchMaterial).Key;
                         cubeCol[FaceName.Right][peaceName] = key;
                         z++;
-                        Debug.Log(z);
                     }
                 }
                 reyPos.x += 3;

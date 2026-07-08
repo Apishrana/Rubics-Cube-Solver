@@ -21,3 +21,4 @@ public enum CubeColor
 [Serializable] public class colorMatDic : SerializableDictionary<CubeColor, Material> { }
 [Serializable] public class faceParentDict : SerializableDictionary<FaceName, GameObject> { }
 [Serializable] public class faceRcDict : SerializableDictionary<FaceName, GameObject> { }
+[Serializable] public class colFaceDict : SerializableDictionary<CubeColor, string> { }
