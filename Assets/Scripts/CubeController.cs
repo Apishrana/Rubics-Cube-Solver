@@ -16,6 +16,8 @@ public class CubeController : MonoBehaviour
     private Dictionary<FaceName, GameObject[]> sideGameObjectDict = new Dictionary<FaceName, GameObject[]> { };
     private Animator an;
     private bool animating = false;
+    public bool solving = false;
+    [SerializeField] private CubeAutomove cubeAutomove;
 
     public void Solve()
     {
@@ -27,6 +29,21 @@ public class CubeController : MonoBehaviour
         // string solution = Search.solution(searchString, out info);
         // Debug.Log(info);
         Debug.LogError(solution);
+        string[] moves = solution.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        foreach (string move in moves)
+        {
+            if (move[^1] == '2')
+            {
+                cubeAutomove.PushTOQueue(move[0].ToString());
+                cubeAutomove.PushTOQueue(move[0].ToString());
+                Debug.LogError(move[0].ToString());
+            }
+            else
+                cubeAutomove.PushTOQueue(move);
+            Debug.LogError(move);
+        }
+        solving = true;
+        cubeAutomove.NextMove();
     }
 
     private string GetCubeStateString()
@@ -260,6 +277,10 @@ public class CubeController : MonoBehaviour
             gameObject.transform.SetParent(transform, true);
         }
         UpdateFaceColor();
+        if (solving)
+        {
+            cubeAutomove.NextMove();
+        }
     }
 
     private void UpdateFaceColor()
