@@ -46,6 +46,52 @@ public class CubeController : MonoBehaviour
         cubeAutomove.NextMove();
     }
 
+    public void Scramble()
+    {
+        string solution = GenerateScramble();
+        Debug.LogError(solution);
+        string[] moves = solution.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        foreach (string move in moves)
+        {
+            if (move[^1] == '2')
+            {
+                cubeAutomove.PushTOQueue(move[0].ToString());
+                cubeAutomove.PushTOQueue(move[0].ToString());
+                Debug.LogError(move[0].ToString());
+            }
+            else
+                cubeAutomove.PushTOQueue(move);
+            Debug.LogError(move);
+        }
+        solving = true;
+        cubeAutomove.NextMove();
+    }
+    private string GenerateScramble()
+    {
+        string[] faces = { "F", "B", "U", "D", "L", "R" };
+        string[] modifiers = { "", "'", "2" };
+
+        List<string> scramble = new List<string>();
+        string lastFace = "";
+
+        for (int i = 0; i < 20; i++)
+        {
+            string currentFace;
+
+            do
+            {
+                currentFace = faces[UnityEngine.Random.Range(0, faces.Length)];
+            }
+            while (currentFace == lastFace);
+
+            string modifier = modifiers[UnityEngine.Random.Range(0, modifiers.Length)];
+            scramble.Add(currentFace + modifier);
+            lastFace = currentFace;
+        }
+
+        return string.Join(" ", scramble);
+    }
+
     private string GetCubeStateString()
     {
         string output = "";
