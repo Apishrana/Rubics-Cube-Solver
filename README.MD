@@ -8,6 +8,8 @@ A 3D Rubik's Cube made in Unity.
 - Camera zoom using the mouse scroll wheel.
 - Standard face moves: `U`, `U'`, `D`, `D'`, `L`, `L'`, `R`, `R'`, `F`, `F'`, `B`, and `B'`.
 - Custom editor overlay for testing.
+- Solver for the cube (using Two-Phase-Algo )
+- Scrambler for the cube
 
 ## Unity Version
 
@@ -26,6 +28,9 @@ This was created in Unity 6000.4.10f1
     - `R` / `R'` - Right face clockwise / anti-clockwise
     - `F` / `F'` - Front face clockwise / anti-clockwise
     - `B` / `B'` - Back face clockwise / anti-clockwise
+- Use the Scramble and Solve button to scramble/ solve the cube*
+
+\*if the cube isn't solved, click solve again
 
 ### Editor Tool
 
@@ -82,7 +87,7 @@ When active in the Unity editor, it shows a small `Cube Controls` panel in the S
 ├── Rubics Cube.slnx
 └── UIElementsSchema
 
-33 directories, 511 files      Main scene
+33 directories, 511 files
 ```
 
 ## Author
