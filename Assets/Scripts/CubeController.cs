@@ -57,11 +57,9 @@ public class CubeController : MonoBehaviour
             {
                 cubeAutomove.PushTOQueue(move[0].ToString());
                 cubeAutomove.PushTOQueue(move[0].ToString());
-                Debug.LogError(move[0].ToString());
             }
             else
                 cubeAutomove.PushTOQueue(move);
-            Debug.LogError(move);
         }
         solving = true;
         cubeAutomove.NextMove();
@@ -91,6 +89,8 @@ public class CubeController : MonoBehaviour
 
         return string.Join(" ", scramble);
     }
+
+    public void SetAnimatorSpeed(float speed) { an.SetFloat("SpeedMult", speed); }
 
     private string GetCubeStateString()
     {
